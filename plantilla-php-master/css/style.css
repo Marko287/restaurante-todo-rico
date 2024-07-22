@@ -1,0 +1,113 @@
+.page-content {
+  padding: 15px;
+}
+
+.caja {
+  background: white !important;
+  border: solid 1px rgba(0, 0, 0, 0.2);
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  padding: 15px;
+}
+
+.titul-principal {
+  align-items: center;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+  display: flex;
+  font-size: 2rem;
+  font-weight: 500;
+  justify-content: space-between;
+  margin-bottom: 15px;
+  padding: 20px;
+  text-align: center;
+  width: 100%;
+}
+
+.container-table {
+  overflow: auto;
+  height: 490px;
+  scrollbar-width: thin;
+}
+
+.conatiner-reserva {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+.conatiner-reserva .box-reserva {
+  background: white;
+  border-radius: 10px;
+  border: solid 1px rgba(0, 0, 0, 0.6);
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+  padding: 15px;
+}
+.conatiner-reserva .box-reserva.ocupado {
+  border-color: #c1121f;
+  background: #ffc7cb;
+}
+.conatiner-reserva .box-reserva .texto {
+  margin-bottom: 10px;
+}
+
+
+
+.formulario {
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+  border: solid 1px rgba(0, 0, 0, 0.6);
+  border-radius: 10px;
+  background: white;
+  padding: 20px;
+}
+
+.container-inicio {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  min-height: 85vh;
+  padding: 20px;
+  width: 100%;
+}
+.container-inicio .content-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+  gap: 20px;
+}
+.container-inicio .content-cards .card-info {
+  align-items: center;
+  background: white;
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+  transition: all 0.3s ease;
+}
+.container-inicio .content-cards .card-info:hover {
+  background: #212e36 !important;
+  color: white;
+}
+.container-inicio .content-cards .card-info .text .cantidad {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+.container-inicio .content-cards .card-info .icon {
+  font-size: 2rem;
+}
+.container-inicio .content-main {
+  -moz-column-gap: 20px;
+       column-gap: 20px;
+  display: grid;
+  flex: 1;
+  grid-template-columns: 1fr 1fr;
+}
+.container-inicio .content-main .carousel-item img {
+  -o-object-fit: cover;
+     object-fit: cover;
+  height: 470px;
+  width: 100%;
+}
+.container-inicio .content-main .box-text .logo {
+  margin: auto;
+  width: -moz-fit-content;
+  width: fit-content;
+}/*# sourceMappingURL=style.css.map */
