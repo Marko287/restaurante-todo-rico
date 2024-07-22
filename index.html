@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" href="style.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+<body>
+    <div class="header">
+        <nav>
+            <img src="img/WhatsApp_Image_2024-06-20_at_11.55.11-removebg-preview.png" class="logo">
+        </nav>
+    </div>
+    <div class="wrapper">
+        <form method="post" action="plantilla-php-master/vista/login/login.php">
+            <h1>Inicia Sesion </h1>
+            <div class="input-box">
+                <input type="text" placeholder="Usuario" name="usuario" required>
+                <i class='bx bxs-user'></i>
+            </div>
+            <div class="input-box">
+                <input type="password" placeholder="Contraseña" name="contrasenia" required>
+                <i class='bx bxs-lock-alt'></i>
+            </div>
+            
+
+           <button type="submit" class="btn">Inicia Sesión</button>
+
+
+            <div class="register-link">
+                <p>¿Te olvidastes tu contraseña?</p><a href="#">ayuda</a>
+            </div>
+        </form>
+    </div>
+    <!-- Sweealer -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="index.js"></script>
+
+</body>
+</html>
