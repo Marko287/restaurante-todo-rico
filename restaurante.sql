@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 22-07-2024 a las 04:54:11
--- Versión del servidor: 10.4.32-MariaDB
--- Versión de PHP: 8.2.12
+-- Tiempo de generación: 23-07-2024 a las 18:40:08
+-- Versión del servidor: 10.4.24-MariaDB
+-- Versión de PHP: 8.1.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -36,7 +36,7 @@ CREATE TABLE `administrador` (
   `rol` enum('administrador','empleado','','') NOT NULL,
   `fechaCreacion` date DEFAULT NULL,
   `fechaActualizacion` date DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `administrador`
@@ -58,7 +58,14 @@ CREATE TABLE `anulaciones` (
   `fechaAnulacion` datetime NOT NULL,
   `motivo` text NOT NULL,
   `devolucion` decimal(4,2) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `anulaciones`
+--
+
+INSERT INTO `anulaciones` (`id`, `id_reserva`, `fechaAnulacion`, `motivo`, `devolucion`) VALUES
+(1, 1, '2024-07-23 08:06:19', 'No asistirá, motivos familiares', '10.00');
 
 -- --------------------------------------------------------
 
@@ -74,10 +81,20 @@ CREATE TABLE `reserva` (
   `celular` varchar(9) NOT NULL,
   `numeroMesa` int(11) NOT NULL,
   `fechaQueReservo` datetime NOT NULL,
-  `fechaDeReserva` datetime NOT NULL,
+  `fechaDeReserva` date NOT NULL,
   `pagoReserva` decimal(4,2) NOT NULL,
-  `tiempoEspera` time NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `estado` enum('reservado','anulado','finalizado','no asistio') NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `reserva`
+--
+
+INSERT INTO `reserva` (`id`, `dni`, `nombre`, `apellidos`, `celular`, `numeroMesa`, `fechaQueReservo`, `fechaDeReserva`, `pagoReserva`, `estado`) VALUES
+(1, '71877865', 'Jhon', 'Alcocer Alcantara', '987654321', 1, '2024-07-22 06:46:40', '2024-07-23', '10.00', 'anulado'),
+(3, '71877869', 'Roy', 'Castro Espiritu', '963258741', 2, '2024-07-22 14:35:18', '2024-07-22', '30.00', 'no asistio'),
+(4, '87654321', 'Nathaly', 'Espiritu Torres', '874562319', 3, '2024-07-22 07:41:27', '2024-07-22', '30.00', 'no asistio'),
+(6, '71877865', 'Carlos', 'Torres Almonacid', '985647234', 2, '2024-07-23 08:52:06', '2024-07-24', '30.00', 'reservado');
 
 --
 -- Índices para tablas volcadas
@@ -116,13 +133,13 @@ ALTER TABLE `administrador`
 -- AUTO_INCREMENT de la tabla `anulaciones`
 --
 ALTER TABLE `anulaciones`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `reserva`
 --
 ALTER TABLE `reserva`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Restricciones para tablas volcadas
