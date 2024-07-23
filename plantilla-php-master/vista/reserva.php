@@ -4,6 +4,11 @@ if (!isset($_SESSION['nombre']) && !isset($_SESSION['apellidos'])) {
     header('location:../../index.html?msg=sinSesion');
 }
 
+include('../modelo/conexion.php');
+// Consultar las mesas reservadas
+// Fecha actual
+date_default_timezone_set('America/Lima');
+$fechaActual = date('Y-m-d');
 ?>
 
 <!-- primero se carga el topbar -->
@@ -22,66 +27,29 @@ if (!isset($_SESSION['nombre']) && !isset($_SESSION['apellidos'])) {
         </div>
     </div>
     <div class="conatiner-reserva">
-        <div class="box-reserva ocupado">
+        <?php for($i = 1; $i <= 6; $i++){
+            $consulta = "SELECT * FROM reserva WHERE numeroMesa = '$i' AND fechaDeReserva >= '$fechaActual'";
+            $respuesta = mysqli_query($conexion, $consulta);
+            $datosDeReserva = mysqli_fetch_assoc($respuesta);
+            $numRows = mysqli_num_rows($respuesta);
+        ?>
+        <div class="box-reserva <?php echo $numRows > 0 ? "ocupado" : '' ?>">
             <div class="texto">
-                <h3>Mesa 1</h3>
-                <div class="ocupado-por">Ocupado por: Mark</div>
+                <h3>Mesa <?php echo $i ?></h3>
+                <?php
+                if($numRows > 0){
+                    $nombreApellidos = $datosDeReserva["nombre"] . " " . $datosDeReserva["apellidos"];
+                }
+                echo $numRows > 0 ? "<div class='ocupado-por'>Ocupado por: $nombreApellidos</div>" : '';
+                ?>
             </div>
             <div class="accion">
-                <button class="btn btn-info btn-sm"  disabled>Ordenar</button>
-                <button class="btn btn-primary btn-sm">Detalles de mesa</button>
+                <?php echo $numRows > 0 ? '' : "<a href='./reservar-mesa.php?mesa=$i' class='btn btn-info btn-sm' >Reservar</a>" ?>
+                <?php echo $numRows > 0 ? '<button class="btn btn-primary btn-sm">Detalles de mesa</button>' : '' ?>
+                <?php echo $numRows > 0 ? "<a href='./editar-reserva.php?id=". $datosDeReserva["id"] ."&mesa=". $datosDeReserva["numeroMesa"] ."' class='btn btn-warning btn-sm'><i class='fa-solid fa-pen'></i></a>" : '' ?>
             </div>
         </div>
-        <div class="box-reserva">
-            <div class="texto">
-                <h3>Mesa 2</h3>
-                <div class="ocupado-por">Ocupado por: Libre</div>
-            </div>
-            <div class="accion">
-                <a href="./reservar-mesa.php" class="btn btn-info btn-sm">Ordenar</a>
-                <button class="btn btn-primary btn-sm">Detalles de mesa</button>
-            </div>
-        </div>
-        <div class="box-reserva">
-            <div class="texto">
-                <h3>Mesa 3</h3>
-                <div class="ocupado-por">Ocupado por: Libre</div>
-            </div>
-            <div class="accion">
-                <a href="./reservar-mesa.php" class="btn btn-info btn-sm">Ordenar</a>
-                <button class="btn btn-primary btn-sm">Detalles de mesa</button>
-            </div>
-        </div>
-        <div class="box-reserva">
-            <div class="texto">
-                <h3>Mesa 4</h3>
-                <div class="ocupado-por">Ocupado por: Libre</div>
-            </div>
-            <div class="accion">
-                <a href="./reservar-mesa.php" class="btn btn-info btn-sm">Ordenar</a>
-                <button class="btn btn-primary btn-sm">Detalles de mesa</button>
-            </div>
-        </div>
-        <div class="box-reserva">
-            <div class="texto">
-                <h3>Mesa 5</h3>
-                <div class="ocupado-por">Ocupado por: Libre</div>
-            </div>
-            <div class="accion">
-                <a href="./reservar-mesa.php" class="btn btn-info btn-sm">Ordenar</a>
-                <button class="btn btn-primary btn-sm">Detalles de mesa</button>
-            </div>
-        </div>
-        <div class="box-reserva">
-            <div class="texto">
-                <h3>Mesa 6</h3>
-                <div class="ocupado-por">Ocupado por: Libre</div>
-            </div>
-            <div class="accion">
-                <a href="./reservar-mesa.php" class="btn btn-info btn-sm">Ordenar</a>
-                <button class="btn btn-primary btn-sm">Detalles de mesa</button>
-            </div>
-        </div>
+        <?php } ?>
     </div>
 
 </div>

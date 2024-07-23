@@ -5,24 +5,20 @@ if (!isset($_SESSION['nombre']) && !isset($_SESSION['apellidos'])) {
 }
 
 include('../modelo/conexion.php');
-// Consultar si la mesa ya esta reservada
-$numMesa = intval($_GET["mesa"]);
-$consulta = "SELECT * FROM reserva WHERE numeroMesa = '$numMesa' AND estado = 'reservado'";
-$respuesta = mysqli_query($conexion, $consulta);
-$numRows = mysqli_num_rows($respuesta);
-if($numRows > 0){
-    header('location:./reserva.php?msg=mesaOcupada');
-}
+$id = $_GET["id"];
 // Fecha actual
 date_default_timezone_set('America/Lima');
 $fechaActual = date('Y-m-d');
-// Incialización de variables
+// Obtener los datos de la mesa reservada
+$consulta = "SELECT * FROM reserva WHERE id = '$id'";
+$respuesta = mysqli_query($conexion, $consulta);
+$datos = mysqli_fetch_assoc($respuesta);
 $mensaje = '';
-$dni = '';
-$nombre = '';
-$apellidos = '';
-$celular = '';
-$fechaDeReserva = '';
+$dni = $datos["dni"];
+$nombre = $datos["nombre"];
+$apellidos = $datos["apellidos"];
+$celular = $datos["celular"];
+$fechaDeReserva = $datos["fechaDeReserva"];
 $validar = false;
 if($_POST){
     $dni = $_POST["dni"];
@@ -99,10 +95,10 @@ if($_POST){
 
     if($validar){
         // Creando la consulta para el insertado a la base de datos
-        $consulta = "INSERT INTO reserva (dni, nombre, apellidos, celular, numeroMesa, fechaQueReservo, fechaDeReserva, pagoReserva, estado) VALUES ('$dni', '$nombre', '$apellidos', '$celular', '$numMesa', '$fechaReservo', '$fechaDeReserva', '$pagoReserva', 'reservado') ";
+        $consulta = "UPDATE reserva SET nombre = '$nombre', apellidos = '$apellidos', celular = '$celular', fechaDeReserva = '$fechaDeReserva' WHERE id = '$id'";
         $respuesta = mysqli_query($conexion, $consulta);
         if($respuesta){
-            header('location:./reserva.php?msg=mesaReservada');
+            header('location:./reserva.php?msg=mesaReservadaActualizada');
         }else{
             $mensaje = '
                 <div class="alert alert-danger" role="alert">
@@ -122,10 +118,9 @@ if($_POST){
 <!-- inicio del contenido principal -->
 <div class="page-content">
     <div class="titul-principal">
-        Reservar la mesa número <?php echo $_GET["mesa"]; ?>
+        Editar la mesa <?php echo $_GET["mesa"]; ?>
         <div class="botones">
-            <a href="./inicio.php" class="btn btn-primary">Volver al inicio</a>
-            <a href="./reserva.php" class="btn btn-danger">Cancelar</a>
+            <a href="./reservaciones.php" class="btn btn-primary">Volver a la lista</a>
         </div>
     </div>
     <form class="formulario" method="post">
@@ -134,7 +129,7 @@ if($_POST){
             <div class="col-6">
                 <div class="mb-3">
                     <label for="dni" class="form-label">DNI:</label>
-                    <input value="<?php echo $dni; ?>" type="text" class="form-control" id="dni" name="dni" placeholder="Escriba el DNI para buscar" required>
+                    <input value="<?php echo $dni; ?>" type="text" class="form-control" id="dni" name="dni" placeholder="Escriba el DNI para buscar" required readonly>
                 </div>
                 <div class="mb-3">
                     <label for="nombre" class="form-label">Nombre:</label>
@@ -156,7 +151,8 @@ if($_POST){
                 </div>
             </div>
         </div>
-        <button type="submit" class="btn btn-primary btn-sm">Reservar</button>
+        <button type="submit" class="btn btn-warning btn-sm">Actualizar</button>
+        <a href="anular-reserva.php?id=<?php echo $_GET["id"]; ?>" type="submit" class="btn btn-danger btn-sm">Anular reserva</a>
     </form>
 </div>
 </div>
