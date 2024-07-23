@@ -81,6 +81,22 @@ window.onload = function(){
             timer: 2300,
         });
     }
+    if(msg === 'anulacionExito'){
+        swal({
+            title: 'Anulado!',
+            text: '¡La reserva ha sido anulado correctamente!',
+            icon: 'success',
+            timer: 2300,
+        });
+    }
+    if(msg === 'anulacionError'){
+        swal({
+            title: 'Anulado!',
+            text: '¡No se pudo anular la reserva!',
+            icon: 'error',
+            timer: 2300,
+        });
+    }
     urlParams.delete('msg');
     const newUrl = window.location.pathname + '?' + urlParams.toString();
     window.history.replaceState({}, '', newUrl);

@@ -4,6 +4,7 @@ if (!isset($_SESSION['nombre']) && !isset($_SESSION['apellidos'])) {
     header('location:../../index.html?msg=sinSesion');
 }
 
+include('./actualizacion.php');
 ?>
 
 <!-- primero se carga el topbar -->

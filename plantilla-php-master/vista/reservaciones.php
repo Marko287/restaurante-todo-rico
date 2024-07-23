@@ -60,12 +60,16 @@ $respuesta = mysqli_query($conexion, $consulta);
                         <td>
                             <?php
                             if($fila["fechaDeReserva"] >= $fechaActual){ ?>
-                                <a href='./editar-reserva.php?id=<?php echo $fila["id"]; ?>&mesa=<?php echo $fila["numeroMesa"]; ?>' class='btn btn-outline-warning btn-sm' title='Editar'>
-                                    <i class="fa-solid fa-pen"></i>
-                                </a>
-                                <a href='./anular-reserva.php?id=<?php echo $fila["id"];?>&mesa=<?php echo $fila["numeroMesa"];?>' class='btn btn-outline-warning btn-sm' title='Anular reserva'>
-                                    <i class="fa-solid fa-ban"></i>
-                                </a>
+                                <?php if($fila["estado"] !== 'anulado'){ ?>
+                                    <?php if($fila["estado"] !== 'no asistio'){ ?>
+                                        <a href='./editar-reserva.php?id=<?php echo $fila["id"]; ?>&mesa=<?php echo $fila["numeroMesa"]; ?>' class='btn btn-outline-warning btn-sm' title='Editar'>
+                                            <i class="fa-solid fa-pen"></i>
+                                        </a>
+                                        <a href='./anular-reserva.php?id=<?php echo $fila["id"];?>&mesa=<?php echo $fila["numeroMesa"];?>' class='btn btn-outline-warning btn-sm' title='Anular reserva'>
+                                            <i class="fa-solid fa-ban"></i>
+                                        </a>
+                                    <?php } ?>
+                                <?php } ?>
                             <?php
                             }
                             ?>

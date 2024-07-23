@@ -28,7 +28,7 @@ $fechaActual = date('Y-m-d');
     </div>
     <div class="conatiner-reserva">
         <?php for($i = 1; $i <= 6; $i++){
-            $consulta = "SELECT * FROM reserva WHERE numeroMesa = '$i' AND fechaDeReserva >= '$fechaActual'";
+            $consulta = "SELECT * FROM reserva WHERE numeroMesa = '$i' AND fechaDeReserva >= '$fechaActual' AND estado = 'reservado'";
             $respuesta = mysqli_query($conexion, $consulta);
             $datosDeReserva = mysqli_fetch_assoc($respuesta);
             $numRows = mysqli_num_rows($respuesta);
