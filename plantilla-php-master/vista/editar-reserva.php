@@ -152,7 +152,14 @@ if($_POST){
             </div>
         </div>
         <button type="submit" class="btn btn-warning btn-sm">Actualizar</button>
-        <a href="anular-reserva.php?id=<?php echo $_GET["id"]; ?>" type="submit" class="btn btn-danger btn-sm">Anular reserva</a>
+        <a href="anular-reserva.php?id=<?php echo $_GET["id"] . "&mesa=" . $_GET["mesa"]; ?>" type="submit" class="btn btn-danger btn-sm">Anular reserva</a>
+    </form>
+    <form action="ticket-excel.php">
+        <a href="ticket-pdf.php?id=<?php echo $_GET["id"]; ?>" type="submit" class="btn btn-danger btn-sm" target="_blank">Descargar ticket como PDF</a>
+        <input type="hidden" value="<?php echo $_GET["id"]; ?>" name="id">
+        <button type="submit" class="btn btn-success btn-sm">
+            Descargar ticket como Excel
+        </button>
     </form>
 </div>
 </div>

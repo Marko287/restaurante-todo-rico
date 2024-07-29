@@ -62,12 +62,17 @@ $respuesta = mysqli_query($conexion, $consulta);
                             if($fila["fechaDeReserva"] >= $fechaActual){ ?>
                                 <?php if($fila["estado"] !== 'anulado'){ ?>
                                     <?php if($fila["estado"] !== 'no asistio'){ ?>
+                                        <?php if($fila["estado"] !== 'finalizado'){ ?>
+                                        <a href='./marcar.php?id=<?php echo $fila["id"]; ?>' class='btn btn-outline-success btn-sm' title='Marcar asistencia'>
+                                            <i class="fa-solid fa-check"></i>
+                                        </a>
                                         <a href='./editar-reserva.php?id=<?php echo $fila["id"]; ?>&mesa=<?php echo $fila["numeroMesa"]; ?>' class='btn btn-outline-warning btn-sm' title='Editar'>
                                             <i class="fa-solid fa-pen"></i>
                                         </a>
                                         <a href='./anular-reserva.php?id=<?php echo $fila["id"];?>&mesa=<?php echo $fila["numeroMesa"];?>' class='btn btn-outline-warning btn-sm' title='Anular reserva'>
                                             <i class="fa-solid fa-ban"></i>
                                         </a>
+                                        <?php } ?>
                                     <?php } ?>
                                 <?php } ?>
                             <?php

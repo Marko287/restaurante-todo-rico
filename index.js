@@ -97,6 +97,22 @@ window.onload = function(){
             timer: 2300,
         });
     }
+    if(msg === 'errorMarcarFinalizado'){
+        swal({
+            title: 'Finalizado!',
+            text: '¡No se pudo marcar como finalizado!',
+            icon: 'error',
+            timer: 2300,
+        });
+    }
+    if(msg === 'marcarFinalizado'){
+        swal({
+            title: 'Finalizado!',
+            text: '¡Se marco como finalizado!',
+            icon: 'success',
+            timer: 2300,
+        });
+    }
     urlParams.delete('msg');
     const newUrl = window.location.pathname + '?' + urlParams.toString();
     window.history.replaceState({}, '', newUrl);

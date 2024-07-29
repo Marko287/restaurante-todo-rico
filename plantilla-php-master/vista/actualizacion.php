@@ -15,7 +15,7 @@ if($respuesta){
     while($fila = mysqli_fetch_assoc($respuesta)){
       $idReserva = $fila["id"];
       $consulta = "UPDATE reserva SET estado = 'no asistio' WHERE id = '$idReserva'";
-      $respuesta = mysqli_query($conexion, $consulta);
+      mysqli_query($conexion, $consulta);
       mysqli_next_result($conexion);
     }
   }

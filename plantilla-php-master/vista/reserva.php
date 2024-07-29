@@ -45,7 +45,7 @@ $fechaActual = date('Y-m-d');
             </div>
             <div class="accion">
                 <?php echo $numRows > 0 ? '' : "<a href='./reservar-mesa.php?mesa=$i' class='btn btn-info btn-sm' >Reservar</a>" ?>
-                <?php echo $numRows > 0 ? '<button class="btn btn-primary btn-sm">Detalles de mesa</button>' : '' ?>
+                <?php echo $numRows > 0 ? "<a href='./ticket-pdf.php?id=" . $datosDeReserva["id"] . "' class='btn btn-primary btn-sm' target='_blank'>Descargar ticket</a>" : '' ?>
                 <?php echo $numRows > 0 ? "<a href='./editar-reserva.php?id=". $datosDeReserva["id"] ."&mesa=". $datosDeReserva["numeroMesa"] ."' class='btn btn-warning btn-sm'><i class='fa-solid fa-pen'></i></a>" : '' ?>
             </div>
         </div>

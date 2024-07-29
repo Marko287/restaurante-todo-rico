@@ -102,7 +102,13 @@ if($_POST){
         $consulta = "INSERT INTO reserva (dni, nombre, apellidos, celular, numeroMesa, fechaQueReservo, fechaDeReserva, pagoReserva, estado) VALUES ('$dni', '$nombre', '$apellidos', '$celular', '$numMesa', '$fechaReservo', '$fechaDeReserva', '$pagoReserva', 'reservado') ";
         $respuesta = mysqli_query($conexion, $consulta);
         if($respuesta){
-            header('location:./reserva.php?msg=mesaReservada');
+            $idReserva = mysqli_insert_id($conexion);
+            // Abrir la pestaña con el envio del id mediante la URL
+            echo "<script>
+                window.open('./ticket-pdf.php?id=$idReserva', '_blank');
+                window.location.href = './reserva.php?msg=mesaReservada';
+            </script>";
+            // header('location:./reserva.php?msg=mesaReservada');
         }else{
             $mensaje = '
                 <div class="alert alert-danger" role="alert">
@@ -132,9 +138,16 @@ if($_POST){
         <?php echo $mensaje; ?>
         <div class="row">
             <div class="col-6">
-                <div class="mb-3">
-                    <label for="dni" class="form-label">DNI:</label>
-                    <input value="<?php echo $dni; ?>" type="text" class="form-control" id="dni" name="dni" placeholder="Escriba el DNI para buscar" required>
+                <div class="row">
+                    <div class="col-9">
+                        <div class="mb-3">
+                            <label for="dni" class="form-label">DNI:</label>
+                            <input value="<?php echo $dni; ?>" type="text" class="form-control" id="dni" name="dni" placeholder="Escriba el DNI para buscar" required>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <button style="width: 110px;" id="buscarDNI" class="btn btn-primary btn-sm mt-4"><i class="fa-solid fa-search"></i> Buscar</button>
+                    </div>
                 </div>
                 <div class="mb-3">
                     <label for="nombre" class="form-label">Nombre:</label>
@@ -162,5 +175,39 @@ if($_POST){
 </div>
 <!-- fin del contenido principal -->
 
+<script>
+    const buscarDNI = document.getElementById("buscarDNI");
+    buscarDNI.addEventListener('click', async (e)=>{
+        e.preventDefault();
+        const dni = document.getElementById("dni").value;
+        if(dni !== '' && dni.length === 8){
+            const formData = new FormData();
+            formData.append('dni', dni);
+            const res = await fetch('api.php', {
+                method: 'POST',
+                mode: 'cors',
+                body: formData
+            });
+            const resJson = await res.json();
+            if(res.json){
+                document.getElementById("nombre").value = resJson.nombres;
+                document.getElementById("apellidos").value = resJson.apellidoPaterno + ' ' + resJson.apellidoMaterno;
+            }else{
+                swal({
+                    title: 'Error',
+                    text: 'Algo salio mal en la consulta',
+                    icon: 'error',
+                });
+            }
+        }else{
+            swal({
+                title: 'Verifique',
+                text: 'El DNI es erroneo verifique',
+                icon: 'error',
+            });
+        }
+    });
+    
+</script>
 <!-- por ultimo se carga el footer -->
 <?php require('./layout/footer.php'); ?>
