@@ -16,35 +16,6 @@ include('./actualizacion.php');
 <div class="page-content">
 
     <div class="container-inicio">
-        <div class="content-cards">
-            <div class="card-info caja">
-                <div class="text">
-                    Mesas libres
-                    <div class="cantidad">5</div>
-                </div>
-                <div class="icon">
-                    <i class="fa-solid fa-stop"></i>
-                </div>
-            </div>
-            <div class="card-info caja">
-                <div class="text">
-                    Ganancia
-                    <div class="cantidad">S/ 500</div>
-                </div>
-                <div class="icon">
-                    <i class="fa-solid fa-dollar-sign"></i>
-                </div>
-            </div>
-            <div class="card-info caja">
-                <div class="text">
-                    Usuarios
-                    <div class="cantidad">112</div>
-                </div>
-                <div class="icon">
-                    <i class="fa-solid fa-users"></i>
-                </div>
-            </div>
-        </div>
         <div class="content-main caja">
             <div class="box-slider">
                 <div id="carouselExampleCaptions" class="carousel slide">
